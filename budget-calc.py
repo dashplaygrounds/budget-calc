@@ -9,6 +9,14 @@ def get_salary():
         except ValueError:
             print("Invalid input. Please enter a numeric value.")
 
+def get_currency():
+    while True:
+        currency = input("Enter your preferred currency symbol (e.g., ₱, $, €, ¥): ").strip()
+        if currency:
+            return currency
+        else:
+            print("Currency cannot be empty. Try again.")
+
 def get_ratios():
     while True:
         try:
@@ -26,19 +34,19 @@ def get_ratios():
             print("Invalid input. Please enter numeric values separated by commas.")
 
 def calculate_allocation(salary, ratios):
-    allocations = [salary * (r / 100) for r in ratios]
-    return allocations
+    return [salary * (r / 100) for r in ratios]
 
-def print_allocation(allocations):
+def print_allocation(allocations, currency):
     print("\nSalary Allocation Breakdown:")
     for i, amount in enumerate(allocations, start=1):
-        print(f"  Division {i}: ₱{amount:,.2f}")
+        print(f"  Division {i}: {currency}{amount:,.2f}")
 
 def main():
+    currency = get_currency()
     salary = get_salary()
     ratios = get_ratios()
     allocations = calculate_allocation(salary, ratios)
-    print_allocation(allocations)
+    print_allocation(allocations, currency)
 
 if __name__ == "__main__":
     main()
